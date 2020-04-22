@@ -22,6 +22,7 @@ class TestContracts(FunctionalTestBase):
         lc.action.datastore_upsert(
             resource_id=self.resource_id,
             records=[record])
+            
 
     def test_blank(self):
         lc = LocalCKAN()

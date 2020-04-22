@@ -94,7 +94,6 @@ class TestContracts(FunctionalTestBase):
             land_claims=['JN', 'NA'],
             limited_tendering_reason=['00', '05'],
             trade_agreement_exceptions=['00', '01'],
-            socioeconomic_indicator=['FP', 'NA'],
         )
         with assert_raises(ValidationError) as ve:
             lc.action.datastore_upsert(
@@ -114,9 +113,6 @@ class TestContracts(FunctionalTestBase):
             'trade_agreement_exceptions': [
                 'If the value 00 (none) is entered, then no other value can '
                 'be entered in this field.'],
-            'socioeconomic_indicator': [
-                'If the value NA (None) is entered, then no other value can '
-                'be entered in this field'],
         }
         assert isinstance(err, dict), err
         for k in set(err) | set(expected):

@@ -145,9 +145,17 @@ class TestContracts(FunctionalTestBase):
                 'If N/A, then Instrument Type must be identified '
                 'as a standing offer/supply arrangement (SOSA)'],
             'limited_tendering_reason': [
-                'If TC, TN or AC is selected in the Solicitation Procedure data '
-                'field with a value other than XX (None) selected in the Trade Agreement '
-                'data field, then a Limited Tendering value other than 00 (none) must be entered.'],
+                'If TC, TN or AC is selected in the Solicitation Procedure data field '
+                'with a value other than XX (None) selected in the Trade Agreement data '
+                'field, then a Limited Tendering value other than 00 (none) must be entered.'],
+            'solicitation_procedure':[
+                'If “TC” (Competitive - Traditional), “TN” (Non-Competitive) or '
+                '“AC” (Advanced Contract Award Notice) is selected and trade agreement '
+                'with a value other than “XX” (None) is selected, limited tendering cannot '
+                'have a value of “0” or “00” (None).'],
+            'number_of_bids':[
+                'This field must be populated with a 1 if the solicitation procedure is '
+                'identified as non-competitive (TN) or Advance Contract Award Notice (AC).'],
         }
         assert isinstance(err, dict), err
         for k in set(err) | set(expected):

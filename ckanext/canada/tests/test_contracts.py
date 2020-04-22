@@ -147,6 +147,26 @@ class TestContracts(FunctionalTestBase):
         for k in set(err) | set(expected):
             assert_equal(err.get(k), expected.get(k), (k, err))
 
+    def test_field_length_errors(self):
+        lc = LocalCKAN()
+        record = dict(
+            get_chromo('contracts')['examples']['record'],
+            economic_object_code='467782',
+            commodity_code='K23HG367BU',
+        )
+        with assert_raises(ValidationError) as ve:
+            lc.action.datastore_upsert(
+                resource_id=self.resource_id,
+                records=[record])
+        err = ve.exception.error_dict['records'][0]
+        expected = {
+            'economic_object_code': ['This field is limited to only 3 or 4 digits.'],
+            'commodity_code': ['The field is limited to eight alpha-numeric digits or less.'],
+        }
+        assert isinstance(err, dict), err
+        for k in set(err) | set(expected):
+            assert_equal(err.get(k), expected.get(k), (k, err))
+
     def test_postal_code(self):
         lc = LocalCKAN()
         record = dict(

@@ -130,7 +130,7 @@ class TestContracts(FunctionalTestBase):
             land_claims=['JN'],
             award_criteria='0',
             solicitation_procedure='TN',
-            limited_tendering_reason='00',
+            limited_tendering_reason=['00'],
         )
         with assert_raises(ValidationError) as ve:
             lc.action.datastore_upsert(

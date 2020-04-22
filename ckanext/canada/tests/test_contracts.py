@@ -129,6 +129,8 @@ class TestContracts(FunctionalTestBase):
             trade_agreement=['CA'],
             land_claims=['JN'],
             award_criteria='0',
+            solicitation_procedure='TN',
+            limited_tendering_reason='00',
         )
         with assert_raises(ValidationError) as ve:
             lc.action.datastore_upsert(
@@ -142,6 +144,10 @@ class TestContracts(FunctionalTestBase):
             'economic_object_code': [
                 'If N/A, then Instrument Type must be identified '
                 'as a standing offer/supply arrangement (SOSA)'],
+            'limited_tendering_reason': [
+                'If TC, TN or AC is selected in the Solicitation Procedure data '
+                'field with a value other than XX (None) selected in the Trade Agreement '
+                'data field, then a Limited Tendering value other than 00 (none) must be entered.'],
         }
         assert isinstance(err, dict), err
         for k in set(err) | set(expected):
